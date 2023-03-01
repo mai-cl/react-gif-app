@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getGifs } from '../helpers/getGifs'
+import { getGifs, getTrendingGifs } from '../helpers/api'
 
 export const useFetchGifs = category => {
   const [state, setState] = useState({
@@ -8,12 +8,22 @@ export const useFetchGifs = category => {
   })
 
   useEffect(() => {
-    getGifs(category).then(imgs =>
-      setState({
-        data: imgs,
-        loading: false,
+    setState(prevState => ({ ...prevState, loading: true }))
+    if (!category) {
+      getTrendingGifs().then(data => {
+        setState({
+          data,
+          loading: false,
+        })
       })
-    )
+    } else {
+      getGifs(category).then(data => {
+        setState({
+          data,
+          loading: false,
+        })
+      })
+    }
   }, [category])
 
   return state
