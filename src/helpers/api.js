@@ -1,13 +1,13 @@
 export const getGifs = async category => {
   const url = `https://api.giphy.com/v1/gifs/search?q=${encodeURI(
     category
-  )}&limit=10&api_key=${process.env.REACT_APP_API_KEY}`
+  )}&limit=15&api_key=${process.env.REACT_APP_API_KEY}`
 
   return fetchData(url)
 }
 
 export const getTrendingGifs = async () => {
-  const url = `https://api.giphy.com/v1/gifs/trending?limit=10&api_key=${process.env.REACT_APP_API_KEY}`
+  const url = `https://api.giphy.com/v1/gifs/trending?limit=15&api_key=${process.env.REACT_APP_API_KEY}`
 
   return fetchData(url)
 }

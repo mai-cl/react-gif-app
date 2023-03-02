@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { FaSearch } from 'react-icons/fa'
 
 const SearchCategory = ({ setCategory }) => {
   const [inputValue, setInputValue] = useState('')
@@ -17,8 +18,16 @@ const SearchCategory = ({ setCategory }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type='text' value={inputValue} onChange={handleInputchange} />
+    <form className='search-form' onSubmit={handleSubmit}>
+      <input
+        className='search-input'
+        type='text'
+        value={inputValue}
+        onChange={handleInputchange}
+      />
+      <button type='submit' className='search-btn'>
+        <FaSearch className='search-icon' size='1.6rem' />
+      </button>
     </form>
   )
 }

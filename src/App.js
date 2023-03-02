@@ -6,11 +6,13 @@ const App = () => {
   const [category, setCategory] = useState(null)
 
   return (
-    <>
-      <h1>GifsApp</h1>
-      <SearchCategory setCategory={setCategory} />
+    <div className='container'>
+      <header className='header'>
+        <h1 className='heading-1'>GifsApp</h1>
+        <SearchCategory setCategory={setCategory} />
+      </header>
       <GifGrid category={category} />
-    </>
+    </div>
   )
 }
 
