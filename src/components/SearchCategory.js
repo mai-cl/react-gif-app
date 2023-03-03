@@ -25,7 +25,7 @@ const SearchCategory = ({ setCategory }) => {
         value={inputValue}
         onChange={handleInputchange}
       />
-      <button type='submit' className='search-btn'>
+      <button type='submit' className='btn search-btn'>
         <FaSearch className='search-icon' size='1.6rem' />
       </button>
     </form>

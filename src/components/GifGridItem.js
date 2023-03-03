@@ -33,10 +33,7 @@ const GifGridItem = ({ title, url }) => {
   }, [])
 
   return (
-    <div
-      className='card animate__animated animate__fadeIn'
-      style={{ gridRowEnd: `span ${spans}` }}
-    >
+    <div className='card' style={{ gridRowEnd: `span ${spans}` }}>
       <img ref={imgRef} src={url} alt={title} />
     </div>
   )
