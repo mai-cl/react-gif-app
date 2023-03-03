@@ -8,7 +8,11 @@ const App = () => {
   return (
     <div className='container'>
       <header className='header'>
-        <h1 className='heading-1'>GifsApp</h1>
+        <h1 className='heading-1'>
+          <a className='header-anchor' href='/'>
+            GifsApp
+          </a>
+        </h1>
         <SearchCategory setCategory={setCategory} />
       </header>
       <GifGrid category={category} />

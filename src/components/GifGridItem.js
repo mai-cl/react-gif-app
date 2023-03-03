@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { HiLink, HiOutlineExternalLink } from 'react-icons/hi'
 
 const GifGridItem = ({ id, title, url }) => {
   const imgRef = useRef(null)
@@ -43,8 +44,16 @@ const GifGridItem = ({ id, title, url }) => {
   return (
     <div className='card' style={{ gridRowEnd: `span ${spans}` }}>
       <div className='card-btn-container'>
-        <button onClick={handleClickCopyLink}>Copy link</button>
-        <button onClick={handleClickOpenInNewTab}>Open in new tab</button>
+        <button className='card-btn' onClick={handleClickCopyLink}>
+          <HiLink className='card-btn-icon' size='2.1rem' color='#fff' />
+        </button>
+        <button className='card-btn' onClick={handleClickOpenInNewTab}>
+          <HiOutlineExternalLink
+            className='card-btn-icon'
+            size='2.1rem'
+            color='#fff'
+          />
+        </button>
       </div>
       <img ref={imgRef} src={url} alt={title} />
     </div>
