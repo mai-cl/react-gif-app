@@ -78,6 +78,27 @@ body {
   padding: 0 1.6rem;
 }
 
+.btn {
+  background-color: #fff;
+  border-color: #000;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-family: inherit;
+  padding: 1.2rem 2.4rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.btn-center {
+  display: block;
+  margin: 0 auto;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -102,27 +123,6 @@ body {
 .search-input:focus {
   outline: none;
   border-color: #000;
-}
-
-.btn {
-  background-color: #fff;
-  border-color: #000;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  font-family: inherit;
-  padding: 1.2rem 2.4rem;
-  font-size: 1.6rem;
-  font-weight: 500;
-}
-
-.btn:hover {
-  background-color: #000;
-  color: #fff;
-}
-
-.btn-center {
-  display: block;
-  margin: 0 auto;
 }
 
 .search-btn {
@@ -164,8 +164,15 @@ body {
 }
 
 .card {
+  position: relative;
   overflow: hidden;
   margin-bottom: 1rem;
+}
+
+.card-btn-container {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .card img {

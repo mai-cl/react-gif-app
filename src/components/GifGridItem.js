@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const GifGridItem = ({ title, url }) => {
+const GifGridItem = ({ id, title, url }) => {
   const imgRef = useRef(null)
   const aspectRatio = useRef(null)
   const [spans, setSpans] = useState(0)
@@ -32,8 +32,20 @@ const GifGridItem = ({ title, url }) => {
     }
   }, [])
 
+  function handleClickCopyLink() {
+    navigator.clipboard.writeText(`https://i.giphy.com/media/${id}/giphy.gif`)
+  }
+
+  function handleClickOpenInNewTab() {
+    window.open(`https://i.giphy.com/media/${id}/giphy.gif`, '_blank')
+  }
+
   return (
     <div className='card' style={{ gridRowEnd: `span ${spans}` }}>
+      <div className='card-btn-container'>
+        <button onClick={handleClickCopyLink}>Copy link</button>
+        <button onClick={handleClickOpenInNewTab}>Open in new tab</button>
+      </div>
       <img ref={imgRef} src={url} alt={title} />
     </div>
   )

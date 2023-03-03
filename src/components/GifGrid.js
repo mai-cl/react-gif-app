@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useFetchGifs } from '../hooks/useFetchGifs'
 import GifGridItem from './GifGridItem'
 import LoadingDots from './LoadingDots'
