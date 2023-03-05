@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { FaSearch } from 'react-icons/fa'
 
 const SearchCategory = ({ setCategory }) => {
   const [inputValue, setInputValue] = useState('')
+  const inputRef = useRef(null)
 
   const handleInputchange = e => {
     setInputValue(e.target.value)
@@ -14,6 +15,7 @@ const SearchCategory = ({ setCategory }) => {
     if (inputValue.trim().length > 2) {
       setCategory(inputValue)
       setInputValue('')
+      inputRef.current.blur()
     }
   }
 
@@ -24,6 +26,7 @@ const SearchCategory = ({ setCategory }) => {
         type='text'
         value={inputValue}
         onChange={handleInputchange}
+        ref={inputRef}
       />
       <button type='submit' className='btn search-btn'>
         <FaSearch className='search-icon' size='1.6rem' />

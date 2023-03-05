@@ -16,7 +16,11 @@ const fetchData = async url => {
     return {
       id: img.id,
       title: img.title,
-      url: img.images?.downsized_medium.url,
+      url: img.images?.fixed_width.url,
+      dimensions: {
+        width: img.images.fixed_width.width,
+        height: img.images.fixed_width.height,
+      },
     }
   })
   return { gifs, pagination: data.pagination, meta: data.meta }

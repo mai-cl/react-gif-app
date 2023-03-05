@@ -1,37 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { HiLink, HiOutlineExternalLink } from 'react-icons/hi'
 
-const GifGridItem = ({ id, title, url }) => {
+const GifGridItem = ({ id, title, url, dimensions }) => {
   const imgRef = useRef(null)
+  const cardRef = useRef(null)
   const aspectRatio = useRef(null)
   const [spans, setSpans] = useState(0)
 
   useEffect(() => {
-    const imgNode = imgRef.current
+    aspectRatio.current = dimensions.width / dimensions.height
 
     function onResizeWindow() {
-      const imgWidth = imgNode.clientWidth
-      const spansCount = Math.ceil(imgWidth / aspectRatio.current / 10)
+      const spansCount = Math.ceil(
+        imgRef.current.clientWidth / aspectRatio.current / 10
+      )
       setSpans(spansCount)
     }
 
     function onLoadImg() {
-      const imgNaturalHeight = imgNode.naturalHeight
-      const imgNaturalWidth = imgNode.naturalWidth
-      aspectRatio.current = imgNaturalWidth / imgNaturalHeight
-
-      onResizeWindow()
-
-      window.addEventListener('resize', onResizeWindow)
+      cardRef.current.classList.remove('card-skeleton')
     }
 
+    onResizeWindow()
+
+    window.addEventListener('resize', onResizeWindow)
     imgRef.current.addEventListener('load', onLoadImg)
 
     return () => {
       window.removeEventListener('resize', onResizeWindow)
-      imgNode.removeEventListener('load', onLoadImg)
     }
-  }, [])
+  }, [dimensions])
 
   function handleClickCopyLink() {
     navigator.clipboard.writeText(`https://i.giphy.com/media/${id}/giphy.gif`)
@@ -42,7 +40,11 @@ const GifGridItem = ({ id, title, url }) => {
   }
 
   return (
-    <div className='card' style={{ gridRowEnd: `span ${spans}` }}>
+    <div
+      ref={cardRef}
+      className='card card-skeleton'
+      style={{ gridRowEnd: `span ${spans}` }}
+    >
       <div className='card-btn-container'>
         <button className='card-btn' onClick={handleClickCopyLink}>
           <HiLink className='card-btn-icon' size='2.1rem' color='#fff' />

@@ -44,6 +44,7 @@ export const useFetchGifs = category => {
   }, [pagination.reqsQty])
 
   useEffect(() => {
+    window.stop()
     setState({ gifs: [], loading: true })
 
     getGifs(category).then(data => {
