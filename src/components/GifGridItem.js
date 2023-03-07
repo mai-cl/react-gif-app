@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useContext } from 'react'
 import { HiLink, HiOutlineExternalLink } from 'react-icons/hi'
+import MessageContext from '../context/MessageContext'
 
 const GifGridItem = ({ id, title, url, dimensions }) => {
   const imgRef = useRef(null)
   const cardRef = useRef(null)
   const aspectRatio = useRef(null)
   const [spans, setSpans] = useState(0)
+  const { showFlashMessage } = useContext(MessageContext)
 
   useEffect(() => {
     aspectRatio.current = dimensions.width / dimensions.height
@@ -33,6 +36,7 @@ const GifGridItem = ({ id, title, url, dimensions }) => {
 
   function handleClickCopyLink() {
     navigator.clipboard.writeText(`https://i.giphy.com/media/${id}/giphy.gif`)
+    showFlashMessage('Link copiado al portapapeles!', 'success')
   }
 
   function handleClickOpenInNewTab() {

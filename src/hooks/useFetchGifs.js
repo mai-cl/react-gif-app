@@ -7,6 +7,8 @@ export const useFetchGifs = category => {
   const [state, setState] = useState({
     gifs: [],
     loading: true,
+    loadingMoreResults: false,
+    error: null,
   })
   const offsetRef = useRef(0)
   const [pagination, setPagination] = useState({
@@ -31,33 +33,61 @@ export const useFetchGifs = category => {
   useEffect(() => {
     if (!pagination.reqsQty) return
 
-    setState({ gifs: state.gifs, loading: true })
+    setState(prevState => ({
+      ...prevState,
+      error: null,
+      loadingMoreResults: true,
+    }))
 
     offsetRef.current += GIFS_QTY_PER_REQUEST
 
-    getGifs(category, offsetRef.current).then(data => {
-      setState({
-        gifs: [...state.gifs, ...data.gifs],
-        loading: false,
+    getGifs(category, offsetRef.current)
+      .then(data => {
+        setState(prevState => ({
+          ...prevState,
+          gifs: [...prevState.gifs, ...data.gifs],
+          loadingMoreResults: false,
+        }))
       })
-    })
+      .catch(err => {
+        setState(prevState => ({
+          ...prevState,
+          loadingMoreResults: false,
+          error: { message: err.message },
+        }))
+      })
   }, [pagination.reqsQty])
 
   useEffect(() => {
     window.stop()
-    setState({ gifs: [], loading: true })
+    setState(prevState => ({
+      ...prevState,
+      gifs: [],
+      loading: true,
+      error: null,
+    }))
 
-    getGifs(category).then(data => {
-      setState({
-        gifs: data.gifs,
-        loading: false,
+    getGifs(category)
+      .then(data => {
+        setState(prevState => ({
+          ...prevState,
+          gifs: data.gifs,
+          loading: false,
+        }))
+        setPagination({
+          reqsQty: 0,
+          totalResults: data.pagination.total_count,
+        })
+        offsetRef.current = 0
       })
-      setPagination({
-        reqsQty: 0,
-        totalResults: data.pagination.total_count,
+      .catch(err => {
+        console.dir(err)
+        setState(prevState => ({
+          ...prevState,
+          loading: false,
+          error: { message: err.message },
+        }))
       })
-      offsetRef.current = 0
-    })
   }, [category])
 
   return { state, getNextResults, areThereMoreResults }
