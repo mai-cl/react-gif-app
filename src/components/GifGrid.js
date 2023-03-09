@@ -4,19 +4,19 @@ import { useFetchGifs } from '../hooks/useFetchGifs'
 import GifGridItem from './GifGridItem'
 import LoadingDots from './LoadingDots'
 
-const GifGrid = ({ category }) => {
+const GifGrid = ({ category, searchCounter }) => {
   const {
     state: { gifs, loading, loadingMoreResults, error },
     getNextResults,
     areThereMoreResults,
-  } = useFetchGifs(category)
+  } = useFetchGifs(category, searchCounter)
 
   const { showFlashMessage } = useContext(MessageContext)
 
   useEffect(() => {
     if (!error) return
     showFlashMessage(error.message, 'error')
-  }, [error])
+  }, [error, showFlashMessage])
 
   if (loading) {
     return <LoadingDots />

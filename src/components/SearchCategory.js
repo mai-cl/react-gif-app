@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { FaSearch } from 'react-icons/fa'
 
-const SearchCategory = ({ setCategory }) => {
+const SearchCategory = ({ setCategory, setSearchCounter }) => {
   const [inputValue, setInputValue] = useState('')
   const inputRef = useRef(null)
 
@@ -14,6 +14,7 @@ const SearchCategory = ({ setCategory }) => {
     e.preventDefault()
     if (inputValue.trim().length > 2) {
       setCategory(inputValue)
+      setSearchCounter(prevState => prevState + 1)
       setInputValue('')
       inputRef.current.blur()
     }

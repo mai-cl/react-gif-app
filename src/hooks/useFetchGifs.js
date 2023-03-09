@@ -3,7 +3,7 @@ import { getGifs } from '../helpers/api'
 
 const GIFS_QTY_PER_REQUEST = 12
 
-export const useFetchGifs = category => {
+export const useFetchGifs = (category, searchCounter) => {
   const [state, setState] = useState({
     gifs: [],
     loading: true,
@@ -81,14 +81,13 @@ export const useFetchGifs = category => {
         offsetRef.current = 0
       })
       .catch(err => {
-        console.dir(err)
         setState(prevState => ({
           ...prevState,
           loading: false,
           error: { message: err.message },
         }))
       })
-  }, [category])
+  }, [category, searchCounter])
 
   return { state, getNextResults, areThereMoreResults }
 }

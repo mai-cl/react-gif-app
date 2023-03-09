@@ -27,6 +27,6 @@ const fetchData = async url => {
 
     return { gifs, pagination: data.pagination, meta: data.meta }
   } catch (error) {
-    throw new Error('No se pudo realizar la búsqueda, intentelo nuevamente.')
+    throw new Error('No se pudo realizar la búsqueda, inténtelo nuevamente.')
   }
 }
